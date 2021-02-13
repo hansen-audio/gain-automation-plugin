@@ -39,6 +39,7 @@ if(SMTG_ADD_VSTGUI)
 endif()
 # -------------------
 
+smtg_add_vst3_resource(GainAutomator resource/big_knob.png)
 smtg_add_vst3_snapshot(GainAutomator resource/CCA38A9855E653C88080AD5A9F58C064_snapshot.png)
 smtg_add_vst3_snapshot(GainAutomator resource/CCA38A9855E653C88080AD5A9F58C064_snapshot_2.0x.png)
 

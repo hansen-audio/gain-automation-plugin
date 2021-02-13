@@ -3,16 +3,25 @@
 	<fonts>
 	</fonts>
 	<colors>
+		<color name="Background" rgba="#303133ff"/>
 	</colors>
-	<template background-color="~ BlackCColor" background-color-draw-style="filled and stroked" class="CViewContainer" mouse-enabled="true" name="view" opacity="1" origin="0, 0" size="300, 300" transparent="false" wants-focus="false"/>
+	<template background-color="Background" background-color-draw-style="filled and stroked" class="CViewContainer" mouse-enabled="true" name="view" opacity="1" origin="0, 0" size="300, 300" transparent="false" wants-focus="false">
+		<view angle-range="270" angle-start="135" bitmap="big_knob" class="CAnimKnob" default-value="1" height-of-one-image="128" inverse-bitmap="false" max-value="1" min-value="0" mouse-enabled="true" opacity="1" origin="90, 80" size="128, 128" sub-pixmaps="129" transparent="false" value-inset="0" wants-focus="false" wheel-inc-value="0.01" zoom-factor="1.5"/>
+	</template>
 	<custom>
 		<attributes name="FocusDrawing"/>
-		<attributes Path="C:/Users/hanza/Documents/VST3Plugins/GainAutomator/resource/gainautomatoreditor.uidesc" name="VST3Editor"/>
+		<attributes Path="/home/rene/Developer/gitea/hansen-audio/gainautomator/gainautomator/resource/gainautomatoreditor.uidesc" name="VST3Editor"/>
 		<attributes Grids="1x 1,5x 5,10x 10,12x 12,15x 15" name="UIGridController"/>
 		<attributes SelectedTemplate="view" name="UITemplateController"/>
-		<attributes EditViewScale="1" EditorSize="0, 0, 500, 545" SplitViewSize_0_0="0.7495183044315992804129678006574977189302" SplitViewSize_0_1="0.2119460500963391003104163701209472492337" SplitViewSize_1_0="0.4797687861271676124097496085596503689885" SplitViewSize_1_1="0.5105973025048169411377330106915906071663" SplitViewSize_2_0="0.6400000000000000133226762955018784850836" SplitViewSize_2_1="0.3499999999999999777955395074968691915274" TabSwitchValue="0" Version="1" name="UIEditController"/>
+		<attributes EditViewScale="1" EditorSize="0, 0, 1300, 827" SplitViewSize_0_0="0.837702871410736626955895189894363284111" SplitViewSize_0_1="0.137328339575530589122820401826174929738" SplitViewSize_1_0="0.5006242197253433223735896717698778957129" SplitViewSize_1_1="0.4931335830212234538905136105313431471586" SplitViewSize_2_0="0.7061538461538461319833004381507635116577" SplitViewSize_2_1="0.2899999999999999800159855567471822723746" TabSwitchValue="2" Version="1" name="UIEditController"/>
 		<attributes name="UIAttributesController"/>
-		<attributes SelectedRow="7" name="UIViewCreatorDataSource"/>
+		<attributes SelectedRow="0" name="UIViewCreatorDataSource"/>
+		<attributes SelectedRow="0" name="UIBitmapsDataSource"/>
+		<attributes SelectedRow="0" name="UIColorsDataSource"/>
+		<attributes SelectedRow="-1" name="UIGradientsDataSource"/>
 	</custom>
-	<bitmaps/>
+	<bitmaps>
+		<bitmap name="big_knob" path="big_knob.png"/>
+	</bitmaps>
+	<gradients/>
 </vstgui-ui-description>
