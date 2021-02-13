@@ -45,13 +45,13 @@ GainParameter::GainParameter(int32 flags, int32 id)
 void GainParameter::toString(Vst::ParamValue normValue, Vst::String128 string) const
 {
     char text[32];
-    if (normValue > 0.0001)
+    if (normValue <= 0.)
     {
-        sprintf(text, "%.2f", 20 * log10f((float)normValue));
+        strcpy(text, "-inf");
     }
     else
     {
-        strcpy(text, "-oo");
+        sprintf(text, "%.2f", 20 * log10f(static_cast<float>(normValue)));
     }
 
     Steinberg::UString(string, 128).fromAscii(text);
@@ -65,7 +65,7 @@ bool GainParameter::fromString(const Vst::TChar* string, Vst::ParamValue& normVa
     if (wrapper.scanFloat(physValue))
     {
         // Only allow values =< 0dB
-        physValue = physValue > 0. ? 1. : physValue;
+        physValue = physValue > 0. ? 0. : physValue;
         normValue = expf(logf(10.f) * static_cast<float>(physValue) / 20.f);
         return true;
     }
