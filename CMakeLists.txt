@@ -1,15 +1,18 @@
 cmake_minimum_required(VERSION 3.14.0)
 
-set(vst3sdk_SOURCE_DIR C:/Users/hanza/Developer/vst3sdk)
-if(NOT vst3sdk_SOURCE_DIR)
-    message(FATAL_ERROR "Path to VST3 SDK is empty!")
-endif()
+include(FetchContent)
+
+FetchContent_Declare(
+    vst3sdk
+    GIT_REPOSITORY https://github.com/steinbergmedia/vst3sdk.git
+    GIT_TAG v3.7.1_build_50
+)
 
 project(GainAutomator)
   
 set(SMTG_VSTGUI_ROOT "${vst3sdk_SOURCE_DIR}")
 
-add_subdirectory(${vst3sdk_SOURCE_DIR} ${PROJECT_BINARY_DIR}/vst3sdk)
+FetchContent_MakeAvailable(vst3sdk)
 smtg_enable_vst3_sdk()
 
 smtg_add_vst3plugin(GainAutomator     
