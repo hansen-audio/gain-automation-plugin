@@ -14,59 +14,58 @@ namespace HA {
 //------------------------------------------------------------------------
 // GainAutomatorProcessor
 //------------------------------------------------------------------------
-GainAutomatorProcessor::GainAutomatorProcessor ()
+GainAutomatorProcessor::GainAutomatorProcessor()
 {
-	//--- set the wanted controller for our processor
-	setControllerClass (kGainAutomatorControllerUID);
+    //--- set the wanted controller for our processor
+    setControllerClass(kGainAutomatorControllerUID);
 }
 
 //------------------------------------------------------------------------
-GainAutomatorProcessor::~GainAutomatorProcessor ()
-{}
+GainAutomatorProcessor::~GainAutomatorProcessor() {}
 
 //------------------------------------------------------------------------
-tresult PLUGIN_API GainAutomatorProcessor::initialize (FUnknown* context)
+tresult PLUGIN_API GainAutomatorProcessor::initialize(FUnknown* context)
 {
-	// Here the Plug-in will be instanciated
-	
-	//---always initialize the parent-------
-	tresult result = AudioEffect::initialize (context);
-	// if everything Ok, continue
-	if (result != kResultOk)
-	{
-		return result;
-	}
+    // Here the Plug-in will be instanciated
 
-	//--- create Audio IO ------
-	addAudioInput (STR16 ("Stereo In"), Steinberg::Vst::SpeakerArr::kStereo);
-	addAudioOutput (STR16 ("Stereo Out"), Steinberg::Vst::SpeakerArr::kStereo);
+    //---always initialize the parent-------
+    tresult result = AudioEffect::initialize(context);
+    // if everything Ok, continue
+    if (result != kResultOk)
+    {
+        return result;
+    }
 
-	/* If you don't need an event bus, you can remove the next line */
-	addEventInput (STR16 ("Event In"), 1);
+    //--- create Audio IO ------
+    addAudioInput(STR16("Stereo In"), Steinberg::Vst::SpeakerArr::kStereo);
+    addAudioOutput(STR16("Stereo Out"), Steinberg::Vst::SpeakerArr::kStereo);
 
-	return kResultOk;
+    /* If you don't need an event bus, you can remove the next line */
+    addEventInput(STR16("Event In"), 1);
+
+    return kResultOk;
 }
 
 //------------------------------------------------------------------------
-tresult PLUGIN_API GainAutomatorProcessor::terminate ()
+tresult PLUGIN_API GainAutomatorProcessor::terminate()
 {
-	// Here the Plug-in will be de-instanciated, last possibility to remove some memory!
-	
-	//---do not forget to call parent ------
-	return AudioEffect::terminate ();
+    // Here the Plug-in will be de-instanciated, last possibility to remove some memory!
+
+    //---do not forget to call parent ------
+    return AudioEffect::terminate();
 }
 
 //------------------------------------------------------------------------
-tresult PLUGIN_API GainAutomatorProcessor::setActive (TBool state)
+tresult PLUGIN_API GainAutomatorProcessor::setActive(TBool state)
 {
-	//--- called when the Plug-in is enable/disable (On/Off) -----
-	return AudioEffect::setActive (state);
+    //--- called when the Plug-in is enable/disable (On/Off) -----
+    return AudioEffect::setActive(state);
 }
 
 //------------------------------------------------------------------------
-tresult PLUGIN_API GainAutomatorProcessor::process (Vst::ProcessData& data)
+tresult PLUGIN_API GainAutomatorProcessor::process(Vst::ProcessData& data)
 {
-	//--- First : Read inputs parameter changes-----------
+    //--- First : Read inputs parameter changes-----------
 
     /*if (data.inputParameterChanges)
     {
@@ -80,53 +79,53 @@ tresult PLUGIN_API GainAutomatorProcessor::process (Vst::ProcessData& data)
                 int32 numPoints = paramQueue->getPointCount ();
                 switch (paramQueue->getParameterId ())
                 {
-				}
-			}
-		}
-	}*/
-	
-	//--- Here you have to implement your processing
+                }
+            }
+        }
+    }*/
 
-	return kResultOk;
+    //--- Here you have to implement your processing
+
+    return kResultOk;
 }
 
 //------------------------------------------------------------------------
-tresult PLUGIN_API GainAutomatorProcessor::setupProcessing (Vst::ProcessSetup& newSetup)
+tresult PLUGIN_API GainAutomatorProcessor::setupProcessing(Vst::ProcessSetup& newSetup)
 {
-	//--- called before any processing ----
-	return AudioEffect::setupProcessing (newSetup);
+    //--- called before any processing ----
+    return AudioEffect::setupProcessing(newSetup);
 }
 
 //------------------------------------------------------------------------
-tresult PLUGIN_API GainAutomatorProcessor::canProcessSampleSize (int32 symbolicSampleSize)
+tresult PLUGIN_API GainAutomatorProcessor::canProcessSampleSize(int32 symbolicSampleSize)
 {
-	// by default kSample32 is supported
-	if (symbolicSampleSize == Vst::kSample32)
-		return kResultTrue;
+    // by default kSample32 is supported
+    if (symbolicSampleSize == Vst::kSample32)
+        return kResultTrue;
 
-	// disable the following comment if your processing support kSample64
-	/* if (symbolicSampleSize == Vst::kSample64)
-		return kResultTrue; */
+    // disable the following comment if your processing support kSample64
+    /* if (symbolicSampleSize == Vst::kSample64)
+        return kResultTrue; */
 
-	return kResultFalse;
+    return kResultFalse;
 }
 
 //------------------------------------------------------------------------
-tresult PLUGIN_API GainAutomatorProcessor::setState (IBStream* state)
+tresult PLUGIN_API GainAutomatorProcessor::setState(IBStream* state)
 {
-	// called when we load a preset, the model has to be reloaded
-	IBStreamer streamer (state, kLittleEndian);
-	
-	return kResultOk;
+    // called when we load a preset, the model has to be reloaded
+    IBStreamer streamer(state, kLittleEndian);
+
+    return kResultOk;
 }
 
 //------------------------------------------------------------------------
-tresult PLUGIN_API GainAutomatorProcessor::getState (IBStream* state)
+tresult PLUGIN_API GainAutomatorProcessor::getState(IBStream* state)
 {
-	// here we need to save the model
-	IBStreamer streamer (state, kLittleEndian);
+    // here we need to save the model
+    IBStreamer streamer(state, kLittleEndian);
 
-	return kResultOk;
+    return kResultOk;
 }
 
 //------------------------------------------------------------------------
