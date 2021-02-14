@@ -10,7 +10,6 @@ namespace HA {
 //------------------------------------------------------------------------
 // ParamValueQueueProcessor
 //------------------------------------------------------------------------
-
 ParamValueQueueProcessor::ParamValueQueueProcessor(Vst::IParamValueQueue* queue, ValueType init)
 : queue(queue)
 , ramp({init, init, 0})

@@ -32,6 +32,8 @@ T calcDelta(T cur, T dst, int n)
 } // namespace
 
 //-----------------------------------------------------------------------------
+// ParamRamp
+//-----------------------------------------------------------------------------
 ParamRamp::ParamRamp(ValueType src, ValueType dst, int _numSamples)
 : x(src)
 , dst(dst)

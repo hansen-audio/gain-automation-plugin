@@ -8,7 +8,7 @@
 namespace HA {
 
 //------------------------------------------------------------------------
-// ParameterChanger
+// ParamValueQueueProcessor
 //------------------------------------------------------------------------
 class ParamValueQueueProcessor
 {
