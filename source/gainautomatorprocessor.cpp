@@ -89,21 +89,29 @@ tresult PLUGIN_API GainAutomatorProcessor::process(Vst::ProcessData& data)
         }
     }
 
-    if (!gainQueue)
-        return kResultOk; // TODO: Pass through buffers.
-
     PTB::ParamValueQueueProcessor gainProc(
         [&](int index, int& offset, PTB::ParamValueQueueProcessor::mut_ValueType& value) {
-            if (!gainQueue || gainQueue->getPointCount() == 0)
+            if (!gainQueue)
                 return false;
 
-            return true;
+            if (index < gainQueue->getPointCount())
+            {
+                Vst::ParamValue tmpValue = 0.;
+                gainQueue->getPoint(index, offset, tmpValue);
+
+                value = tmpValue;
+                return true;
+            }
+
+            return false;
         },
         gainValue);
-    int32 samples = data.numSamples;
-    while (samples-- > 0)
+
+    for (int i = 0; i < data.numSamples; ++i)
     {
-        gainValue = gainProc.tick();
+        data.outputs[0].channelBuffers32[0][i] = data.inputs[0].channelBuffers32[0][i] * gainValue;
+        data.outputs[0].channelBuffers32[1][i] = data.inputs[0].channelBuffers32[1][i] * gainValue;
+        gainValue                              = gainProc.tick();
     }
 
     return kResultOk;
