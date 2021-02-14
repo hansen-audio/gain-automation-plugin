@@ -5,7 +5,7 @@
 #include "gainautomatorprocessor.h"
 #include "gainautomatorcids.h"
 #include "gainautomatorparamids.h"
-#include "paramvaluequeueprocessor.h"
+#include "ha/ptb/paramvaluequeueprocessor.h"
 
 #include "base/source/fstreamer.h"
 #include "pluginterfaces/vst/ivstparameterchanges.h"
@@ -92,7 +92,14 @@ tresult PLUGIN_API GainAutomatorProcessor::process(Vst::ProcessData& data)
     if (!gainQueue)
         return kResultOk; // TODO: Pass through buffers.
 
-    ParamValueQueueProcessor gainProc(gainQueue, gainValue);
+    PTB::ParamValueQueueProcessor gainProc(
+        [&](int index, int& offset, PTB::ParamValueQueueProcessor::mut_ValueType& value) {
+            if (!gainQueue || gainQueue->getPointCount() == 0)
+                return false;
+
+            return true;
+        },
+        gainValue);
     int32 samples = data.numSamples;
     while (samples-- > 0)
     {

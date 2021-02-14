@@ -3,10 +3,10 @@
 #pragma once
 
 #include "paramramp.h"
-#include "pluginterfaces/vst/ivstparameterchanges.h"
+#include <functional>
 
 namespace HA {
-
+namespace PTB {
 //------------------------------------------------------------------------
 // ParamValueQueueProcessor
 //------------------------------------------------------------------------
@@ -14,22 +14,27 @@ class ParamValueQueueProcessor
 {
 public:
     //--------------------------------------------------------------------
-    using ValueType = ParamRamp::ValueType;
+    using ValueType     = ParamRamp::ValueType;
+    using mut_ValueType = ParamRamp::mut_ValueType;
 
-    ParamValueQueueProcessor(Steinberg::Vst::IParamValueQueue* queue, ValueType init);
-    ParamRamp::ValueType tick();
+    using ParamValueQueue =
+        std::function<bool(int /*index*/, int& /*offset*/, mut_ValueType& /*value*/)>;
+
+    ParamValueQueueProcessor(ParamValueQueue queue, ValueType init);
+    ValueType tick();
+    ValueType getValue() const;
 
     //--------------------------------------------------------------------
 private:
-    int nextSegment();
     void updateRamp();
     void initRamp(int index);
 
-    bool isValidQueue(Steinberg::Vst::IParamValueQueue* queue);
     ParamRamp ramp;
-    Steinberg::Vst::IParamValueQueue* queue = nullptr;
-    int currSegment                         = 0;
+    ParamValueQueue queue = nullptr;
+    int currSegment       = 0;
+    bool moreRamps        = true;
 };
 
 //-----------------------------------------------------------------------------
+} // namespace PTB
 } // namespace HA

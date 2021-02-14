@@ -1,6 +1,6 @@
 // Copyright(c) 2021 Hansen Audio.
 
-#include "paramramp.h"
+#include "ha/ptb/paramramp.h"
 #include <math.h>
 
 namespace HA {
@@ -31,6 +31,7 @@ T calcDelta(T cur, T dst, int n)
 //------------------------------------------------------------------------
 } // namespace
 
+namespace PTB {
 //-----------------------------------------------------------------------------
 // ParamRamp
 //-----------------------------------------------------------------------------
@@ -57,4 +58,5 @@ bool ParamRamp::isDone() const
 }
 
 //-----------------------------------------------------------------------------
+} // namespace PTB
 } // namespace HA

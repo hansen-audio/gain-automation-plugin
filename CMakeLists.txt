@@ -15,6 +15,8 @@ set(SMTG_VSTGUI_ROOT "${vst3sdk_SOURCE_DIR}")
 FetchContent_MakeAvailable(vst3sdk)
 smtg_enable_vst3_sdk()
 
+add_subdirectory(external)
+
 smtg_add_vst3plugin(GainAutomator     
     source/version.h
     source/gainautomatorcids.h
@@ -23,10 +25,11 @@ smtg_add_vst3plugin(GainAutomator
     source/gainautomatorcontroller.h
     source/gainautomatorcontroller.cpp
     source/gainautomatorentry.cpp
-    source/paramramp.cpp
-    source/paramramp.h
-    source/paramvaluequeueprocessor.cpp
-    source/paramvaluequeueprocessor.h
+)
+
+target_link_libraries(GainAutomator
+    PRIVATE
+        paramtoolbox
 )
 
 #- VSTGUI Wanted ----
