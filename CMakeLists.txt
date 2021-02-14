@@ -23,6 +23,10 @@ smtg_add_vst3plugin(GainAutomator
     source/gainautomatorcontroller.h
     source/gainautomatorcontroller.cpp
     source/gainautomatorentry.cpp
+    source/paramramp.cpp
+    source/paramramp.h
+    source/paramvaluequeueprocessor.cpp
+    source/paramvaluequeueprocessor.h
 )
 
 #- VSTGUI Wanted ----
