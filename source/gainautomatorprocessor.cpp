@@ -97,7 +97,8 @@ tresult PLUGIN_API GainAutomatorProcessor::process(Vst::ProcessData& data)
             if (index < gainQueue->getPointCount())
             {
                 Vst::ParamValue tmpValue = 0.;
-                gainQueue->getPoint(index, offset, tmpValue);
+                if (gainQueue->getPoint(index, offset, tmpValue) != kResultOk)
+                    return false;
 
                 value = tmpValue;
                 return true;
