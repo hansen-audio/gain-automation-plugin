@@ -22,10 +22,12 @@ smtg_add_vst3plugin(Gain-Automator
 
 target_link_libraries(Gain-Automator
     PRIVATE
+        sdk
         param-tool-box
 )
 
 #- VSTGUI Wanted ----
+message(STATUS "${SMTG_ADD_VSTGUI}")
 if(SMTG_ADD_VSTGUI)
 	target_sources(Gain-Automator
 		PRIVATE
@@ -43,11 +45,6 @@ smtg_add_vst3_resource(Gain-Automator resource/big_knob.png)
 smtg_add_vst3_resource(Gain-Automator resource/big_knob_2.0x.png)
 smtg_add_vst3_snapshot(Gain-Automator resource/CCA38A9855E653C88080AD5A9F58C064_snapshot.png)
 smtg_add_vst3_snapshot(Gain-Automator resource/CCA38A9855E653C88080AD5A9F58C064_snapshot_2.0x.png)
-
-target_link_libraries(Gain-Automator
-    PRIVATE
-        sdk
-)
 
 if(SMTG_MAC)
     smtg_set_bundle(Gain-Automator INFOPLIST 
