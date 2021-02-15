@@ -108,11 +108,20 @@ tresult PLUGIN_API GainAutomatorProcessor::process(Vst::ProcessData& data)
         },
         gainValue);
 
+    if (!data.outputs || !data.inputs)
+        return kResultOk;
+
     for (int i = 0; i < data.numSamples; ++i)
     {
-        data.outputs[0].channelBuffers32[0][i] = data.inputs[0].channelBuffers32[0][i] * gainValue;
-        data.outputs[0].channelBuffers32[1][i] = data.inputs[0].channelBuffers32[1][i] * gainValue;
-        gainValue                              = gainProc.tick();
+        if (data.outputs[0].channelBuffers32[0] && data.inputs[0].channelBuffers32[0])
+            data.outputs[0].channelBuffers32[0][i] =
+                data.inputs[0].channelBuffers32[0][i] * gainValue;
+
+        if (data.outputs[0].channelBuffers32[1] && data.inputs[0].channelBuffers32[1])
+            data.outputs[0].channelBuffers32[1][i] =
+                data.inputs[0].channelBuffers32[1][i] * gainValue;
+
+        gainValue = gainProc.tick();
     }
 
     return kResultOk;
