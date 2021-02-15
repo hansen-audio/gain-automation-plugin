@@ -22,7 +22,7 @@ smtg_add_vst3plugin(GainAutomator
 
 target_link_libraries(GainAutomator
     PRIVATE
-        paramtoolbox
+        param-tool-box
 )
 
 #- VSTGUI Wanted ----
