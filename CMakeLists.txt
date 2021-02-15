@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14.0)
 
 include(FetchContent)
 
-project(GainAutomator)
+project(gain-automator)
 
 add_subdirectory(external)
 FetchContent_MakeAvailable(vst3sdk)
@@ -10,7 +10,7 @@ FetchContent_MakeAvailable(vst3sdk)
 set(SMTG_VSTGUI_ROOT "${vst3sdk_SOURCE_DIR}")
 smtg_enable_vst3_sdk()
 
-smtg_add_vst3plugin(GainAutomator     
+smtg_add_vst3plugin(Gain-Automator     
     source/version.h
     source/gainautomatorcids.h
     source/gainautomatorprocessor.h
@@ -20,47 +20,47 @@ smtg_add_vst3plugin(GainAutomator
     source/gainautomatorentry.cpp
 )
 
-target_link_libraries(GainAutomator
+target_link_libraries(Gain-Automator
     PRIVATE
         param-tool-box
 )
 
 #- VSTGUI Wanted ----
 if(SMTG_ADD_VSTGUI)
-	target_sources(GainAutomator
+	target_sources(Gain-Automator
 		PRIVATE
 			resource/gainautomatoreditor.uidesc
 	)
-    target_link_libraries(GainAutomator
+    target_link_libraries(Gain-Automator
         PRIVATE
             vstgui_support
     )
-    smtg_add_vst3_resource(GainAutomator "resource/gainautomatoreditor.uidesc")
+    smtg_add_vst3_resource(Gain-Automator "resource/gainautomatoreditor.uidesc")
 endif()
 # -------------------
 
-smtg_add_vst3_resource(GainAutomator resource/big_knob.png)
-smtg_add_vst3_resource(GainAutomator resource/big_knob_2.0x.png)
-smtg_add_vst3_snapshot(GainAutomator resource/CCA38A9855E653C88080AD5A9F58C064_snapshot.png)
-smtg_add_vst3_snapshot(GainAutomator resource/CCA38A9855E653C88080AD5A9F58C064_snapshot_2.0x.png)
+smtg_add_vst3_resource(Gain-Automator resource/big_knob.png)
+smtg_add_vst3_resource(Gain-Automator resource/big_knob_2.0x.png)
+smtg_add_vst3_snapshot(Gain-Automator resource/CCA38A9855E653C88080AD5A9F58C064_snapshot.png)
+smtg_add_vst3_snapshot(Gain-Automator resource/CCA38A9855E653C88080AD5A9F58C064_snapshot_2.0x.png)
 
-target_link_libraries(GainAutomator
+target_link_libraries(Gain-Automator
     PRIVATE
         sdk
 )
 
 if(SMTG_MAC)
-    smtg_set_bundle(GainAutomator INFOPLIST 
+    smtg_set_bundle(Gain-Automator INFOPLIST 
         "${CMAKE_CURRENT_LIST_DIR}/resource/Info.plist" 
         PREPROCESS
     )
 elseif(SMTG_WIN)
-    target_sources(GainAutomator PRIVATE 
+    target_sources(Gain-Automator PRIVATE 
         resource/win32resource.rc
     )
-    set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT GainAutomator)
+    set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT Gain-Automator)
 	
-	set_target_properties(GainAutomator PROPERTIES
+	set_target_properties(Gain-Automator PROPERTIES
 		VS_DEBUGGER_COMMAND
 			"$(ProgramW6432)/Steinberg/VST3PluginTestHost/VST3PluginTestHost.exe"
 		VS_DEBUGGER_COMMAND_ARGUMENTS
