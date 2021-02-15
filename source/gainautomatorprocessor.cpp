@@ -22,7 +22,6 @@ namespace HA {
 //------------------------------------------------------------------------
 GainAutomatorProcessor::GainAutomatorProcessor()
 {
-    //--- set the wanted controller for our processor
     setControllerClass(kGainAutomatorControllerUID);
 }
 
@@ -32,7 +31,6 @@ GainAutomatorProcessor::~GainAutomatorProcessor() {}
 //------------------------------------------------------------------------
 tresult PLUGIN_API GainAutomatorProcessor::initialize(FUnknown* context)
 {
-    //---always initialize the parent-------
     tresult result = AudioEffect::initialize(context);
     if (result != kResultOk)
     {
