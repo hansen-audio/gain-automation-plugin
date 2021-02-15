@@ -20,7 +20,7 @@ cmake --build .
 
 ## License
 
-Copyright 2013-2020 Signal
+Copyright 2021 Hansen Audio
 
 Licensed under the GPLv3: http://www.gnu.org/licenses/gpl-3.0.html
 
