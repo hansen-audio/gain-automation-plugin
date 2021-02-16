@@ -75,7 +75,7 @@ tresult PLUGIN_API GainAutomatorProcessor::process(Vst::ProcessData& data)
     }
 
     PTB::ParamValueQueueProcessor gainProc(
-        [&](int index, int& offset, PTB::ParamValueQueueProcessor::mut_ValueType& value) {
+        [gainQueue](int index, int& offset, PTB::ParamValueQueueProcessor::mut_ValueType& value) {
             if (!gainQueue)
                 return false;
 
