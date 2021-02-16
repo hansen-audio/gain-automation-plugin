@@ -27,7 +27,6 @@ target_link_libraries(Gain-Automator
 )
 
 #- VSTGUI Wanted ----
-message(STATUS "${SMTG_ADD_VSTGUI}")
 if(SMTG_ADD_VSTGUI)
 	target_sources(Gain-Automator
 		PRIVATE
