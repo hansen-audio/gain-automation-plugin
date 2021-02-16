@@ -16,6 +16,33 @@
 using namespace Steinberg;
 
 namespace HA {
+namespace {
+
+//------------------------------------------------------------------------
+using QueueProcessor = PTB::ParamValueQueueProcessor;
+QueueProcessor createPVQP(Vst::IParamValueQueue* queue, float initValue)
+{
+    const auto pvqp = [queue](int index, int& offset, QueueProcessor::mut_ValueType& value) {
+        if (!queue)
+            return false;
+
+        if (index < queue->getPointCount())
+        {
+            Vst::ParamValue tmpValue = 0.;
+            if (queue->getPoint(index, offset, tmpValue) != kResultOk)
+                return false;
+
+            value = tmpValue;
+            return true;
+        }
+
+        return false;
+    };
+    return QueueProcessor(pvqp, initValue);
+}
+
+//------------------------------------------------------------------------
+} // namespace
 
 //------------------------------------------------------------------------
 // GainAutomatorProcessor
@@ -74,24 +101,7 @@ tresult PLUGIN_API GainAutomatorProcessor::process(Vst::ProcessData& data)
         }
     }
 
-    PTB::ParamValueQueueProcessor gainProc(
-        [gainQueue](int index, int& offset, PTB::ParamValueQueueProcessor::mut_ValueType& value) {
-            if (!gainQueue)
-                return false;
-
-            if (index < gainQueue->getPointCount())
-            {
-                Vst::ParamValue tmpValue = 0.;
-                if (gainQueue->getPoint(index, offset, tmpValue) != kResultOk)
-                    return false;
-
-                value = tmpValue;
-                return true;
-            }
-
-            return false;
-        },
-        gainValue);
+    PTB::ParamValueQueueProcessor gainProc = createPVQP(gainQueue, gainValue);
 
     if (!data.outputs || !data.inputs)
         return kResultOk;
