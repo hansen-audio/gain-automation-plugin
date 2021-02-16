@@ -42,6 +42,29 @@ QueueProcessor createPVQP(Vst::IParamValueQueue* queue, float initValue)
 }
 
 //------------------------------------------------------------------------
+Vst::IParamValueQueue* findParamValueQueue(Vst::ParamID id, Vst::IParameterChanges* paramChanges)
+{
+    Vst::IParamValueQueue* queue = nullptr;
+    if (!paramChanges)
+        return queue;
+
+    const int32 numParamsChanges = paramChanges->getParameterCount();
+    for (int32 index = 0; index < numParamsChanges; index++)
+    {
+        if (auto* paramQueue = paramChanges->getParameterData(index))
+        {
+            if (paramQueue->getParameterId() == id)
+            {
+                queue = paramQueue;
+                break;
+            }
+        }
+    }
+
+    return queue;
+}
+
+//------------------------------------------------------------------------
 } // namespace
 
 //------------------------------------------------------------------------
@@ -85,22 +108,7 @@ tresult PLUGIN_API GainAutomatorProcessor::setActive(TBool state)
 //------------------------------------------------------------------------
 tresult PLUGIN_API GainAutomatorProcessor::process(Vst::ProcessData& data)
 {
-    Vst::IParamValueQueue* gainQueue = nullptr;
-    if (data.inputParameterChanges)
-    {
-        const int32 numParamsChanged = data.inputParameterChanges->getParameterCount();
-        for (int32 index = 0; index < numParamsChanged; index++)
-        {
-            if (auto* paramQueue = data.inputParameterChanges->getParameterData(index))
-            {
-                if (paramQueue->getParameterId() == kParamGainId)
-                {
-                    gainQueue = paramQueue;
-                }
-            }
-        }
-    }
-
+    auto* gainQueue = findParamValueQueue(kParamGainId, data.inputParameterChanges);
     PTB::ParamValueQueueProcessor gainProc = createPVQP(gainQueue, gainValue);
 
     if (!data.outputs || !data.inputs)
