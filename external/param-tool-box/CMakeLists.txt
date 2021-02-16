@@ -4,7 +4,7 @@ include(FetchContent)
 
 FetchContent_Declare(
     param-tool-box
-    GIT_REPOSITORY http://github.com/hansen-audio/param-tool-box.git
+    GIT_REPOSITORY ${HA_GIT_REPOSITORY_URL}/hansen-audio/param-tool-box.git
     GIT_TAG origin/master
 )
 
