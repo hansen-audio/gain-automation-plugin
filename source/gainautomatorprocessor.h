@@ -14,6 +14,7 @@ namespace HA {
 class GainAutomatorProcessor : public Steinberg::Vst::AudioEffect
 {
 public:
+    //--------------------------------------------------------------------
     GainAutomatorProcessor();
     ~GainAutomatorProcessor() SMTG_OVERRIDE;
 
@@ -36,7 +37,7 @@ public:
     Steinberg::tresult PLUGIN_API setState(Steinberg::IBStream* state) SMTG_OVERRIDE;
     Steinberg::tresult PLUGIN_API getState(Steinberg::IBStream* state) SMTG_OVERRIDE;
 
-    //------------------------------------------------------------------------
+    //--------------------------------------------------------------------
 protected:
     float gainValue = 1.;
 };
