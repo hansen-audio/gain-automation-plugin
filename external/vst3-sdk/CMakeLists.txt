@@ -10,5 +10,5 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(vst3sdk)
 
-# Solve problem with public_sdk_SOURCE_DIR not being defined when using smtg_enable_vst3sdk().
-set(vst3sdk_SOURCE_DIR ${vst3sdk_SOURCE_DIR} CACHE INTERNAL "VST 3 SDk source directory.") 
+# Solve problem with public_sdk_SOURCE_DIR not being defined when using smtg_enable_vst3_sdk().
+set(vst3sdk_SOURCE_DIR ${vst3sdk_SOURCE_DIR} CACHE INTERNAL "VST 3 SDK source directory.") 
