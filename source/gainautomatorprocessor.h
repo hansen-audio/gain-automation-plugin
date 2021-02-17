@@ -15,6 +15,9 @@ class GainAutomatorProcessor : public Steinberg::Vst::AudioEffect
 {
 public:
     //--------------------------------------------------------------------
+    static constexpr int kIndexL = 0;
+    static constexpr int kIndexR = 1;
+
     GainAutomatorProcessor();
     ~GainAutomatorProcessor() SMTG_OVERRIDE;
 

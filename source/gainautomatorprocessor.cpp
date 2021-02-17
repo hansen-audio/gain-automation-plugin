@@ -114,15 +114,17 @@ tresult PLUGIN_API GainAutomatorProcessor::process(Vst::ProcessData& data)
     if (!data.outputs || !data.inputs)
         return kResultOk;
 
+    Vst::AudioBusBuffers& outputBus = data.outputs[0];
+    Vst::AudioBusBuffers& inputBus  = data.inputs[0];
     for (int i = 0; i < data.numSamples; ++i)
     {
-        if (data.outputs[0].channelBuffers32[0] && data.inputs[0].channelBuffers32[0])
-            data.outputs[0].channelBuffers32[0][i] =
-                data.inputs[0].channelBuffers32[0][i] * gainValue;
+        if (outputBus.channelBuffers32[kIndexL] && inputBus.channelBuffers32[kIndexL])
+            outputBus.channelBuffers32[kIndexL][i] =
+                inputBus.channelBuffers32[kIndexL][i] * gainValue;
 
-        if (data.outputs[0].channelBuffers32[1] && data.inputs[0].channelBuffers32[1])
-            data.outputs[0].channelBuffers32[1][i] =
-                data.inputs[0].channelBuffers32[1][i] * gainValue;
+        if (outputBus.channelBuffers32[kIndexR] && inputBus.channelBuffers32[kIndexR])
+            outputBus.channelBuffers32[kIndexR][i] =
+                inputBus.channelBuffers32[kIndexR][i] * gainValue;
 
         gainValue = gainProc.tick();
     }
