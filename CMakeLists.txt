@@ -5,9 +5,7 @@ include(FetchContent)
 project(gain-automator)
 
 add_subdirectory(external)
-FetchContent_MakeAvailable(vst3sdk)
 
-set(SMTG_VSTGUI_ROOT "${vst3sdk_SOURCE_DIR}")
 smtg_enable_vst3_sdk()
 
 smtg_add_vst3plugin(Gain-Automator     
