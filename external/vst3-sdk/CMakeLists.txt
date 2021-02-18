@@ -12,7 +12,7 @@ FetchContent_Declare(
 option(SMTG_RUN_VST_VALIDATOR OFF)
 
 if(WIN32)
-    set(SMTG_CREATE_PLUGIN_LINK OFF)
+    option(SMTG_CREATE_PLUGIN_LINK OFF)
 endif()
 
 FetchContent_MakeAvailable(vst3sdk)
