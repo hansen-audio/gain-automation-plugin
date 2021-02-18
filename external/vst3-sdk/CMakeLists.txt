@@ -11,6 +11,10 @@ FetchContent_Declare(
 # Disable annoying validator once and for all!!!
 option(SMTG_RUN_VST_VALIDATOR OFF)
 
+if(WIN32)
+    set(SMTG_CREATE_PLUGIN_LINK OFF)
+endif()
+
 FetchContent_MakeAvailable(vst3sdk)
 
 # Solve problem with public_sdk_SOURCE_DIR not being defined when using smtg_enable_vst3_sdk().
