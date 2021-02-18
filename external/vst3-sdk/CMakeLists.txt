@@ -8,6 +8,9 @@ FetchContent_Declare(
     GIT_TAG v3.7.1_build_50
 )
 
+# Disable annoying validator once and for all!!!
+option(SMTG_RUN_VST_VALIDATOR OFF)
+
 FetchContent_MakeAvailable(vst3sdk)
 
 # Solve problem with public_sdk_SOURCE_DIR not being defined when using smtg_enable_vst3_sdk().
