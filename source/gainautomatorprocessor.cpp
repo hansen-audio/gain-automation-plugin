@@ -29,10 +29,12 @@ QueueProcessor createPVQP(Vst::IParamValueQueue* queue, float initValue)
         if (index < queue->getPointCount())
         {
             Vst::ParamValue tmpValue = 0.;
-            if (queue->getPoint(index, offset, tmpValue) != kResultOk)
+            int32 tmpOffset          = 0;
+            if (queue->getPoint(index, tmpOffset, tmpValue) != kResultOk)
                 return false;
 
-            value = tmpValue;
+            offset = tmpOffset;
+            value  = tmpValue;
             return true;
         }
 
