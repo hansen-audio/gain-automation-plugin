@@ -5,7 +5,7 @@
 #include "gainautomatorprocessor.h"
 #include "gainautomatorcids.h"
 #include "gainautomatorparamids.h"
-#include "ha/ptb/paramrampprocessor.h"
+#include "ha/param-tool-box/process/rampprocessor.h"
 
 #include "base/source/fstreamer.h"
 #include "pluginterfaces/vst/ivstparameterchanges.h"
@@ -19,7 +19,7 @@ namespace HA {
 namespace {
 
 //------------------------------------------------------------------------
-using QueueProcessor = PTB::ParamRampProcessor;
+using QueueProcessor = PTB::RampProcessor;
 QueueProcessor createPRP(Vst::IParamValueQueue* queue, float initValue)
 {
     const auto pvqp = [queue](int index, int& offset, QueueProcessor::mut_ValueType& value) {
@@ -110,8 +110,8 @@ tresult PLUGIN_API GainAutomatorProcessor::setActive(TBool state)
 //------------------------------------------------------------------------
 tresult PLUGIN_API GainAutomatorProcessor::process(Vst::ProcessData& data)
 {
-    auto* gainQueue = findParamValueQueue(kParamGainId, data.inputParameterChanges);
-    PTB::ParamRampProcessor gainProc = createPRP(gainQueue, gainValue);
+    auto* gainQueue             = findParamValueQueue(kParamGainId, data.inputParameterChanges);
+    PTB::RampProcessor gainProc = createPRP(gainQueue, gainValue);
 
     if (!data.outputs || !data.inputs)
         return kResultOk;
@@ -124,9 +124,12 @@ tresult PLUGIN_API GainAutomatorProcessor::process(Vst::ProcessData& data)
             outputBus.channelBuffers32[kIndexL][i] =
                 inputBus.channelBuffers32[kIndexL][i] * gainValue;
 
-        if (outputBus.channelBuffers32[kIndexR] && inputBus.channelBuffers32[kIndexR])
-            outputBus.channelBuffers32[kIndexR][i] =
-                inputBus.channelBuffers32[kIndexR][i] * gainValue;
+        if (outputBus.numChannels > kIndexL)
+        {
+            if (outputBus.channelBuffers32[kIndexR] && inputBus.channelBuffers32[kIndexR])
+                outputBus.channelBuffers32[kIndexR][i] =
+                    inputBus.channelBuffers32[kIndexR][i] * gainValue;
+        }
 
         gainValue = gainProc.advance();
     }
