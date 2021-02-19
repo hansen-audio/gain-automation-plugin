@@ -124,7 +124,7 @@ tresult PLUGIN_API GainAutomatorProcessor::process(Vst::ProcessData& data)
             outputBus.channelBuffers32[kIndexL][i] =
                 inputBus.channelBuffers32[kIndexL][i] * gainValue;
 
-        if (outputBus.numChannels > kIndexL)
+        if (outputBus.numChannels > 1)
         {
             if (outputBus.channelBuffers32[kIndexR] && inputBus.channelBuffers32[kIndexR])
                 outputBus.channelBuffers32[kIndexR][i] =
