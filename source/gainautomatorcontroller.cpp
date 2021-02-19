@@ -5,12 +5,18 @@
 #include "gainautomatorcontroller.h"
 #include "gainautomatorcids.h"
 #include "gainautomatorparamids.h"
+#include "ha/param-tool-box/convert/dezibel.h"
+#include "ha/param-tool-box/process/rampprocessor.h"
 #include "pluginterfaces/base/ustring.h"
+#include "public.sdk/source/vst/utility/stringconvert.h"
 #include "vstgui/plugin-bindings/vst3editor.h"
 
 using namespace Steinberg;
 
 namespace HA {
+
+//------------------------------------------------------------------------
+static const PTB::Convert::Dezibel<float> dB_converter(-96, 0, 2);
 
 //------------------------------------------------------------------------
 // GainParameter
@@ -44,33 +50,19 @@ GainParameter::GainParameter(int32 flags, int32 id)
 //------------------------------------------------------------------------
 void GainParameter::toString(Vst::ParamValue normValue, Vst::String128 string) const
 {
-    char text[32];
-    if (normValue <= 0.)
-    {
-        strcpy(text, "-inf");
-    }
-    else
-    {
-        sprintf(text, "%.2f", 20 * log10f(static_cast<float>(normValue)));
-    }
-
-    Steinberg::UString(string, 128).fromAscii(text);
+    const auto physical    = dB_converter.toPhysical(normValue);
+    const auto physicalStr = dB_converter.toString(physical);
+    Steinberg::UString(string, 128).fromAscii(physicalStr.data());
 }
 
 //------------------------------------------------------------------------
 bool GainParameter::fromString(const Vst::TChar* string, Vst::ParamValue& normValue) const
 {
-    String wrapper((Vst::TChar*)string); // don't know buffer size here!
-    double physValue = 0.0;
-    if (wrapper.scanFloat(physValue))
-    {
-        // Only allow values =< 0dB
-        physValue = physValue > 0. ? 0. : physValue;
-        normValue = expf(logf(10.f) * static_cast<float>(physValue) / 20.f);
-        return true;
-    }
-
-    return false;
+    const auto tmp           = VST3::StringConvert::convert(string);
+    const auto physicalVal   = dB_converter.fromString(tmp);
+    const auto normalizedVal = dB_converter.toNormalized(physicalVal);
+    normValue                = normalizedVal;
+    return true;
 }
 
 //------------------------------------------------------------------------
