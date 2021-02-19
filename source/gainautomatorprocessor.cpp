@@ -128,7 +128,7 @@ tresult PLUGIN_API GainAutomatorProcessor::process(Vst::ProcessData& data)
             outputBus.channelBuffers32[kIndexR][i] =
                 inputBus.channelBuffers32[kIndexR][i] * gainValue;
 
-        gainValue = gainProc.tick();
+        gainValue = gainProc.advance();
     }
 
     return kResultOk;
