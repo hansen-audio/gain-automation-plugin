@@ -5,7 +5,7 @@
 #include "gainautomatorprocessor.h"
 #include "gainautomatorcids.h"
 #include "gainautomatorparamids.h"
-#include "ha/ptb/paramvaluequeueprocessor.h"
+#include "ha/ptb/paramrampprocessor.h"
 
 #include "base/source/fstreamer.h"
 #include "pluginterfaces/vst/ivstparameterchanges.h"
@@ -19,8 +19,8 @@ namespace HA {
 namespace {
 
 //------------------------------------------------------------------------
-using QueueProcessor = PTB::ParamValueQueueProcessor;
-QueueProcessor createPVQP(Vst::IParamValueQueue* queue, float initValue)
+using QueueProcessor = PTB::ParamRampProcessor;
+QueueProcessor createPRP(Vst::IParamValueQueue* queue, float initValue)
 {
     const auto pvqp = [queue](int index, int& offset, QueueProcessor::mut_ValueType& value) {
         if (!queue)
@@ -111,7 +111,7 @@ tresult PLUGIN_API GainAutomatorProcessor::setActive(TBool state)
 tresult PLUGIN_API GainAutomatorProcessor::process(Vst::ProcessData& data)
 {
     auto* gainQueue = findParamValueQueue(kParamGainId, data.inputParameterChanges);
-    PTB::ParamValueQueueProcessor gainProc = createPVQP(gainQueue, gainValue);
+    PTB::ParamRampProcessor gainProc = createPRP(gainQueue, gainValue);
 
     if (!data.outputs || !data.inputs)
         return kResultOk;
