@@ -6,7 +6,6 @@
 #include "gainautomatorcids.h"
 #include "gainautomatorparamids.h"
 #include "ha/param-tool-box/convert/dezibel.h"
-#include "ha/param-tool-box/process/rampprocessor.h"
 #include "pluginterfaces/base/ustring.h"
 #include "public.sdk/source/vst/utility/stringconvert.h"
 #include "vstgui/plugin-bindings/vst3editor.h"
