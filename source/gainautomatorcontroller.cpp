@@ -51,8 +51,9 @@ GainParameter::GainParameter(int32 flags, int32 id)
 void GainParameter::toString(Vst::ParamValue normValue, Vst::String128 string) const
 {
     const auto physical    = dB_converter.toPhysical(normValue);
-    const auto physicalStr = dB_converter.toString(
-        physical, [](DezibelFloat::RealType physical) { return physical < -10 ? 1 : 2; });
+    const auto physicalStr = dB_converter.toString(physical, [](DezibelFloat::value_type physical) {
+        return physical < DezibelFloat::value_type(-10.) ? 1 : 2;
+    });
     Steinberg::UString(string, 128).fromAscii(physicalStr.data());
 }
 
