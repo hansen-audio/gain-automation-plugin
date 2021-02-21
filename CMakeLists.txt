@@ -12,12 +12,12 @@ smtg_enable_vst3_sdk()
 
 smtg_add_vst3plugin(Gain-Automator     
     source/version.h
-    source/gainautomatorcids.h
-    source/gainautomatorprocessor.h
-    source/gainautomatorprocessor.cpp
-    source/gainautomatorcontroller.h
-    source/gainautomatorcontroller.cpp
-    source/gainautomatorentry.cpp
+    source/gain_automator_cids.h
+    source/gain_automator_processor.h
+    source/gain_automator_processor.cpp
+    source/gain_automator_controller.h
+    source/gain_automator_controller.cpp
+    source/gain_automator_entry.cpp
 )
 
 target_link_libraries(Gain-Automator
@@ -30,13 +30,13 @@ target_link_libraries(Gain-Automator
 if(SMTG_ADD_VSTGUI)
 	target_sources(Gain-Automator
 		PRIVATE
-			resource/gainautomatoreditor.uidesc
+			resource/gain_automator_editor.uidesc
 	)
     target_link_libraries(Gain-Automator
         PRIVATE
             vstgui_support
     )
-    smtg_add_vst3_resource(Gain-Automator "resource/gainautomatoreditor.uidesc")
+    smtg_add_vst3_resource(Gain-Automator "resource/gain_automator_editor.uidesc")
 endif()
 # -------------------
 

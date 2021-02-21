@@ -2,9 +2,9 @@
 // Copyright(c) 2021 Hansen Audio.
 //------------------------------------------------------------------------
 
-#include "gainautomatorcids.h"
-#include "gainautomatorcontroller.h"
-#include "gainautomatorprocessor.h"
+#include "gain_automator_cids.h"
+#include "gain_automator_controller.h"
+#include "gain_automator_processor.h"
 #include "version.h"
 
 #include "public.sdk/source/main/pluginfactory.h"

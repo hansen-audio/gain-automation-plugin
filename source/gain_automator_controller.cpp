@@ -2,9 +2,9 @@
 // Copyright(c) 2021 Hansen Audio.
 //------------------------------------------------------------------------
 
-#include "gainautomatorcontroller.h"
-#include "gainautomatorcids.h"
-#include "gainautomatorparamids.h"
+#include "gain_automator_controller.h"
+#include "gain_automator_cids.h"
+#include "gain_automator_param_ids.h"
 #include "ha/param_tool_box/convert/dezibel.h"
 #include "pluginterfaces/base/ustring.h"
 #include "public.sdk/source/vst/utility/stringconvert.h"
@@ -113,7 +113,7 @@ IPlugView* PLUGIN_API GainAutomatorController::createView(FIDString name)
 {
     if (FIDStringsEqual(name, Vst::ViewType::kEditor))
     {
-        auto* view = new VSTGUI::VST3Editor(this, "view", "gainautomatoreditor.uidesc");
+        auto* view = new VSTGUI::VST3Editor(this, "view", "gain_automator_editor.uidesc");
         return view;
     }
     return nullptr;

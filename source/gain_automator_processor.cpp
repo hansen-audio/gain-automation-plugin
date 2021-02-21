@@ -2,9 +2,9 @@
 // Copyright(c) 2021 Hansen Audio.
 //------------------------------------------------------------------------
 
-#include "gainautomatorprocessor.h"
-#include "gainautomatorcids.h"
-#include "gainautomatorparamids.h"
+#include "gain_automator_processor.h"
+#include "gain_automator_cids.h"
+#include "gain_automator_param_ids.h"
 #include "ha/param_tool_box/process/ramp_processor.h"
 
 #include "base/source/fstreamer.h"
