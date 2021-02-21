@@ -5,7 +5,7 @@
 #include "gainautomatorprocessor.h"
 #include "gainautomatorcids.h"
 #include "gainautomatorparamids.h"
-#include "ha/param-tool-box/process/rampprocessor.h"
+#include "ha/param-tool-box/process/ramp_processor.h"
 
 #include "base/source/fstreamer.h"
 #include "pluginterfaces/vst/ivstparameterchanges.h"
