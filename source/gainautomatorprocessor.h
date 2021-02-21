@@ -6,7 +6,7 @@
 
 #include "public.sdk/source/vst/vstaudioeffect.h"
 
-namespace HA {
+namespace ha {
 
 //------------------------------------------------------------------------
 //  GainAutomatorProcessor
@@ -46,4 +46,4 @@ protected:
 };
 
 //------------------------------------------------------------------------
-} // namespace HA
+} // namespace ha

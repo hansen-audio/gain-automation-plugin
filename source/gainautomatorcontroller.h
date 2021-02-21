@@ -6,7 +6,7 @@
 
 #include "public.sdk/source/vst/vsteditcontroller.h"
 
-namespace HA {
+namespace ha {
 
 //------------------------------------------------------------------------
 //  GainAutomatorController
@@ -56,4 +56,4 @@ protected:
 };
 
 //------------------------------------------------------------------------
-} // namespace HA
+} // namespace ha

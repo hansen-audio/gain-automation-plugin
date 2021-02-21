@@ -12,10 +12,10 @@
 
 using namespace Steinberg;
 
-namespace HA {
+namespace ha {
 
 //------------------------------------------------------------------------
-using DezibelFloat = PTB::Convert::Dezibel<float>;
+using DezibelFloat = ptb::convert::Dezibel<float>;
 static const DezibelFloat dB_converter(-96, 0);
 
 //------------------------------------------------------------------------
@@ -144,4 +144,4 @@ tresult PLUGIN_API GainAutomatorController::getParamValueByString(Vst::ParamID t
 }
 
 //------------------------------------------------------------------------
-} // namespace HA
+} // namespace ha

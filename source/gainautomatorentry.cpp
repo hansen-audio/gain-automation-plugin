@@ -30,7 +30,7 @@ bool DeinitModule()
 }
 
 using namespace Steinberg::Vst;
-using namespace HA;
+using namespace ha;
 
 //------------------------------------------------------------------------
 //  VST Plug-in Entry
@@ -68,6 +68,6 @@ DEF_CLASS2(INLINE_UID_FROM_FUID(kGainAutomatorControllerUID),
                                                     // should be instantiated
 
 //----for others Plug-ins contained in this factory, put like for the first Plug-in different
-//DEF_CLASS2---
+// DEF_CLASS2---
 
 END_FACTORY

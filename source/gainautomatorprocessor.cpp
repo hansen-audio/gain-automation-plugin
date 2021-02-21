@@ -15,14 +15,14 @@
 
 using namespace Steinberg;
 
-namespace HA {
+namespace ha {
 namespace {
 
 //------------------------------------------------------------------------
-using QueueProcessor = PTB::RampProcessor;
+using QueueProcessor = ptb::RampProcessor;
 QueueProcessor createPRP(Vst::IParamValueQueue* queue, float initValue)
 {
-    const auto pvqp = [queue](int index, int& offset, QueueProcessor::mut_ValueType& value) {
+    const auto pvqp = [queue](int index, int& offset, QueueProcessor::mut_value_type& value) {
         if (!queue)
             return false;
 
@@ -111,7 +111,7 @@ tresult PLUGIN_API GainAutomatorProcessor::setActive(TBool state)
 tresult PLUGIN_API GainAutomatorProcessor::process(Vst::ProcessData& data)
 {
     auto* gainQueue             = findParamValueQueue(kParamGainId, data.inputParameterChanges);
-    PTB::RampProcessor gainProc = createPRP(gainQueue, gainValue);
+    ptb::RampProcessor gainProc = createPRP(gainQueue, gainValue);
 
     if (!data.outputs || !data.inputs)
         return kResultOk;
@@ -169,4 +169,4 @@ tresult PLUGIN_API GainAutomatorProcessor::getState(IBStream* state)
 }
 
 //------------------------------------------------------------------------
-} // namespace HA
+} // namespace ha

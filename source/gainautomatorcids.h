@@ -7,7 +7,7 @@
 #include "pluginterfaces/base/funknown.h"
 #include "pluginterfaces/vst/vsttypes.h"
 
-namespace HA {
+namespace ha {
 //------------------------------------------------------------------------
 static const Steinberg::FUID
     kGainAutomatorProcessorUID(0xCCA38A98, 0x55E653C8, 0x8080AD5A, 0x9F58C064);
@@ -17,4 +17,4 @@ static const Steinberg::FUID
 #define GainAutomatorVST3Category "Fx"
 
 //------------------------------------------------------------------------
-} // namespace HA
+} // namespace ha
