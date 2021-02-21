@@ -9,7 +9,7 @@
 
 #include "public.sdk/source/main/pluginfactory.h"
 
-#define stringPluginName "GainAutomator"
+#define stringPluginName "Gain-Automator"
 
 //------------------------------------------------------------------------
 //  Module init/exit
