@@ -19,8 +19,8 @@ namespace ha {
 namespace {
 
 //------------------------------------------------------------------------
-using QueueProcessor = ptb::RampProcessor;
-QueueProcessor createPRP(Vst::IParamValueQueue* queue, float initValue)
+using QueueProcessor = ptb::ramp_processor;
+QueueProcessor create_ramp_processor(Vst::IParamValueQueue* queue, float initValue)
 {
     const auto pvqp = [queue](int index, int& offset, QueueProcessor::mut_value_type& value) {
         if (!queue)
@@ -110,8 +110,8 @@ tresult PLUGIN_API GainAutomatorProcessor::setActive(TBool state)
 //------------------------------------------------------------------------
 tresult PLUGIN_API GainAutomatorProcessor::process(Vst::ProcessData& data)
 {
-    auto* gainQueue             = findParamValueQueue(kParamGainId, data.inputParameterChanges);
-    ptb::RampProcessor gainProc = createPRP(gainQueue, gainValue);
+    auto* gainQueue              = findParamValueQueue(kParamGainId, data.inputParameterChanges);
+    ptb::ramp_processor gainProc = create_ramp_processor(gainQueue, gainValue);
 
     if (!data.outputs || !data.inputs)
         return kResultOk;

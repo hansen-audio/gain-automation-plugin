@@ -15,8 +15,8 @@ using namespace Steinberg;
 namespace ha {
 
 //------------------------------------------------------------------------
-using DezibelFloat = ptb::convert::Dezibel<float>;
-static const DezibelFloat dB_converter(-96, 0);
+using fdezibel = ptb::convert::dezibel<float>;
+static const fdezibel dB_converter(-96, 0);
 
 //------------------------------------------------------------------------
 // GainParameter
@@ -50,9 +50,9 @@ GainParameter::GainParameter(int32 flags, int32 id)
 //------------------------------------------------------------------------
 void GainParameter::toString(Vst::ParamValue normValue, Vst::String128 string) const
 {
-    const auto physical    = dB_converter.toPhysical(normValue);
-    const auto physicalStr = dB_converter.toString(physical, [](DezibelFloat::value_type physical) {
-        return physical < DezibelFloat::value_type(-10.) ? 1 : 2;
+    const auto physical    = dB_converter.to_physical(normValue);
+    const auto physicalStr = dB_converter.to_string(physical, [](fdezibel::value_type physical) {
+        return physical < fdezibel::value_type(-10.) ? 1 : 2;
     });
     Steinberg::UString(string, 128).fromAscii(physicalStr.data());
 }
@@ -60,10 +60,10 @@ void GainParameter::toString(Vst::ParamValue normValue, Vst::String128 string) c
 //------------------------------------------------------------------------
 bool GainParameter::fromString(const Vst::TChar* string, Vst::ParamValue& normValue) const
 {
-    const auto utf8Str       = VST3::StringConvert::convert(string);
-    const auto physicalVal   = dB_converter.fromString(utf8Str);
-    const auto normalizedVal = dB_converter.toNormalized(physicalVal);
-    normValue                = normalizedVal;
+    const auto utf8_str       = VST3::StringConvert::convert(string);
+    const auto physical_val   = dB_converter.from_string(utf8_str);
+    const auto normalized_val = dB_converter.to_normalized(physical_val);
+    normValue                 = normalized_val;
     return true;
 }
 
