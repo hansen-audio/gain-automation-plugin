@@ -17,8 +17,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-      # Needed to build VSTGUI
-    - run: sudo apt-get install libx11-dev libx11-xcb-dev libxcb-util-dev libxcb-cursor-dev libxcb-keysyms1-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev libfontconfig1-dev libcairo2-dev libfreetype6-dev
+      # Dependencies for VSTGUI build.
+    - name: Install Dependencies 
+      run: sudo apt-get install libx11-dev libx11-xcb-dev libxcb-util-dev libxcb-cursor-dev libxcb-keysyms1-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev libfontconfig1-dev libcairo2-dev libfreetype6-dev
 
     - name: Create Build Environment
       # Some projects don't allow in-source building, so create a separate build directory
