@@ -106,13 +106,12 @@ tresult PLUGIN_API GainAutomatorProcessor::setActive(TBool state)
 //------------------------------------------------------------------------
 tresult PLUGIN_API GainAutomatorProcessor::process(Vst::ProcessData& data)
 {
-    auto* queue   = findParamValueQueue(kParamGainId, data.inputParameterChanges);
-    auto callback = [queue](int index, int& offset, float& value) -> bool {
-        return get_queue_value(queue, index, offset, value);
-    };
-
-    // 26th Feb 2021: Type deduction of constructor arguments with C++17. VST 3 SDK is C++14 still.
-    ptb::ramp_processor<decltype(callback)> gainProc(callback, gainValue);
+    auto* queue = findParamValueQueue(kParamGainId, data.inputParameterChanges);
+    ptb::ramp_processor gainProc(
+        [queue](int index, int& offset, float& value) -> bool {
+            return get_queue_value(queue, index, offset, value);
+        },
+        gainValue);
 
     if (!data.outputs || !data.inputs)
         return kResultOk;
