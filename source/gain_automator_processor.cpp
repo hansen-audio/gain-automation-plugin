@@ -19,28 +19,24 @@ namespace ha {
 namespace {
 
 //------------------------------------------------------------------------
-using QueueProcessor = ptb::ramp_processor;
-QueueProcessor create_ramp_processor(Vst::IParamValueQueue* queue, float initValue)
+bool get_queue_value(Vst::IParamValueQueue* queue, int index, int& offset, float& value)
 {
-    const auto pvqp = [queue](int index, int& offset, QueueProcessor::mut_value_type& value) {
-        if (!queue)
+    if (!queue)
+        return false;
+
+    if (index < queue->getPointCount())
+    {
+        Vst::ParamValue tmpValue = 0.;
+        int32 tmpOffset          = 0;
+        if (queue->getPoint(index, tmpOffset, tmpValue) != kResultOk)
             return false;
 
-        if (index < queue->getPointCount())
-        {
-            Vst::ParamValue tmpValue = 0.;
-            int32 tmpOffset          = 0;
-            if (queue->getPoint(index, tmpOffset, tmpValue) != kResultOk)
-                return false;
+        offset = tmpOffset;
+        value  = tmpValue;
+        return true;
+    }
 
-            offset = tmpOffset;
-            value  = tmpValue;
-            return true;
-        }
-
-        return false;
-    };
-    return QueueProcessor(pvqp, initValue);
+    return false;
 }
 
 //------------------------------------------------------------------------
@@ -110,8 +106,13 @@ tresult PLUGIN_API GainAutomatorProcessor::setActive(TBool state)
 //------------------------------------------------------------------------
 tresult PLUGIN_API GainAutomatorProcessor::process(Vst::ProcessData& data)
 {
-    auto* gainQueue              = findParamValueQueue(kParamGainId, data.inputParameterChanges);
-    ptb::ramp_processor gainProc = create_ramp_processor(gainQueue, gainValue);
+    auto* queue   = findParamValueQueue(kParamGainId, data.inputParameterChanges);
+    auto callback = [queue](int index, int& offset, float& value) -> bool {
+        return get_queue_value(queue, index, offset, value);
+    };
+
+    // 26th Feb 2021: Type deduction of constructor arguments with C++17. VST 3 SDK is C++14 still.
+    ptb::ramp_processor<decltype(callback)> gainProc(callback, gainValue);
 
     if (!data.outputs || !data.inputs)
         return kResultOk;
