@@ -1,5 +1,5 @@
 # Gain Automator Effect Plug-in
-[![Linux Build](https://github.com/hansen-audio/gain-automator/actions/workflows/cmake_linux.yml/badge.svg)](https://github.com/hansen-audio/gain-automator/actions/workflows/cmake_linux.yml)
+[![Linux Build](https://github.com/hansen-audio/gain-automator/actions/workflows/cmake_linux.yml/badge.svg)](https://github.com/hansen-audio/gain-automator/actions/workflows/cmake_linux.yml) [![macOS Build](https://github.com/hansen-audio/gain-automator/actions/workflows/cmake_macos.yml/badge.svg)](https://github.com/hansen-audio/gain-automator/actions/workflows/cmake_macos.yml)
 
 A simple VST 3 plug-in which can automate the gain parameter with sample accuracy. It is a precondition that the host supports VST 3's sample accurate automation curves.
 
