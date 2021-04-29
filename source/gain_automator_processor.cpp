@@ -108,14 +108,24 @@ tresult PLUGIN_API GainAutomatorProcessor::process(Vst::ProcessData& data)
 {
     auto* queue = findParamValueQueue(kParamGainId, data.inputParameterChanges);
     ptb::ramp_processor gainProc(
-        [queue](int index, int& offset, float& value) -> bool {
-            return get_queue_value(queue, index, offset, value);
-        },
-        gainValue);
+        [queue, gainValue = gainValue](int index, int& offset, float& value) -> bool {
+            bool const res          = get_queue_value(queue, index, offset, value);
+            bool const isQueueEmpty = (!res) && (index == 0);
+            if (isQueueEmpty)
+            {
+                // If queue is empty, simply initialise with the last cached gainValue.
+                offset = 0;
+                value  = gainValue;
+                return true;
+            }
+
+            return res;
+        });
 
     if (!data.outputs || !data.inputs)
         return kResultOk;
 
+    gainValue                       = gainProc.get_value();
     Vst::AudioBusBuffers& outputBus = data.outputs[0];
     Vst::AudioBusBuffers& inputBus  = data.inputs[0];
     for (int i = 0; i < data.numSamples; ++i)
