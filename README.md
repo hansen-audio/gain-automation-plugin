@@ -16,7 +16,9 @@ cmake --build .
 ```
 
 > Linux: ```cmake -DCMAKE_BUILD_TYPE=[Debug|Release] ../gain-automator```
+
 > macOS:```cmake -GXcode ../gain-automator```
+
 > Windows 10: ```cmake -G"Visual Studio 16 2019" -A x64 ..\gain-automator```
 
 ## License
